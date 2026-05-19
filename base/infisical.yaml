@@ -1,6 +1,21 @@
-apiVersion: secrets.6cclab.dev/v1alpha1
-kind: HomelabSecret
+apiVersion: secrets.infisical.com/v1alpha1
+kind: InfisicalSecret
 metadata:
-  name: swing-detector-secrets
+  name: swing-detector
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
-  projectId: d5b5e6bf-5c59-4ea3-ae8f-7d72ac65438d
+  resyncInterval: 60
+  authentication:
+    kubernetesAuth:
+      identityId: ccebb465-42d4-4b19-9dac-9eec7a9e5613
+      autoCreateServiceAccountToken: true
+      secretsScope:
+        projectId: d5b5e6bf-5c59-4ea3-ae8f-7d72ac65438d
+        envSlug: dev
+        secretsPath: /
+        recursive: true
+  managedSecretReference:
+    secretName: swing-detector-secrets
+    secretNamespace: swing-detector
+    creationPolicy: Owner
