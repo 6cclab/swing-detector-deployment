@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - infisical.yaml
+  - redis.yaml
   - postgres.yaml
   - deployment.yaml
   - service.yaml
