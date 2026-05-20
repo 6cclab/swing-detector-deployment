@@ -26,6 +26,20 @@ spec:
         prometheus.io/port: "8000"
         prometheus.io/path: "/health"
     spec:
+      initContainers:
+        - name: migrate
+          image: ghcr.io/6cclab/swing-detector-api:latest
+          command: ["/migrate", "-direction", "up", "-path", "file:///migrations"]
+          envFrom:
+            - secretRef:
+                name: swing-detector-secrets
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
       containers:
         - name: api
           image: ghcr.io/6cclab/swing-detector-api:latest
