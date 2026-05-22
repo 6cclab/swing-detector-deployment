@@ -38,10 +38,12 @@ spec:
           env:
             - name: PORT
               value: "8000"
-            - name: VIDEO_STORAGE_PATH
-              value: /app/uploads
             - name: REDIS_URL
               value: redis://swing-detector-redis:6379
+            - name: S3_ENDPOINT
+              value: http://garage.garage.svc:3900
+            - name: S3_BUCKET
+              value: swing-iq
           livenessProbe:
             httpGet:
               path: /health
@@ -57,13 +59,11 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 128Mi
             limits:
               cpu: 500m
-              memory: 256Mi
+              memory: 512Mi
           volumeMounts:
-            - name: uploads
-              mountPath: /app/uploads
             - name: tmp
               mountPath: /tmp
           securityContext:
@@ -78,9 +78,6 @@ spec:
               exec:
                 command: ["sleep", "30"]
       volumes:
-        - name: uploads
-          persistentVolumeClaim:
-            claimName: swing-detector-uploads
         - name: tmp
           emptyDir: {}
 ---
@@ -110,12 +107,14 @@ spec:
             - secretRef:
                 name: swing-detector-secrets
           env:
-            - name: VIDEO_STORAGE_PATH
-              value: /app/uploads
             - name: MODEL_CHECKPOINT_DIR
               value: /app/checkpoints
             - name: REDIS_URL
               value: redis://swing-detector-redis:6379
+            - name: S3_ENDPOINT
+              value: http://garage.garage.svc:3900
+            - name: S3_BUCKET
+              value: swing-iq
           resources:
             requests:
               cpu: 250m
@@ -124,8 +123,6 @@ spec:
               cpu: "2"
               memory: 2Gi
           volumeMounts:
-            - name: uploads
-              mountPath: /app/uploads
             - name: checkpoints
               mountPath: /app/checkpoints
           securityContext:
@@ -136,22 +133,9 @@ spec:
               drop:
                 - ALL
       volumes:
-        - name: uploads
-          persistentVolumeClaim:
-            claimName: swing-detector-uploads
         - name: checkpoints
           persistentVolumeClaim:
             claimName: swing-detector-checkpoints
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: swing-detector-uploads
-spec:
-  accessModes: ["ReadWriteMany"]
-  resources:
-    requests:
-      storage: 10Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
