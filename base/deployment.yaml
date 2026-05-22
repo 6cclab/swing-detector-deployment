@@ -64,6 +64,8 @@ spec:
           volumeMounts:
             - name: uploads
               mountPath: /app/uploads
+            - name: tmp
+              mountPath: /tmp
           securityContext:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
@@ -79,6 +81,8 @@ spec:
         - name: uploads
           persistentVolumeClaim:
             claimName: swing-detector-uploads
+        - name: tmp
+          emptyDir: {}
 ---
 # Python ML Worker
 apiVersion: apps/v1
