@@ -6,6 +6,7 @@ namespace: swing-detector
 resources:
 - ../../base
 - ingress.yaml
+- middleware.yaml
 
 images:
 - name: ghcr.io/6cclab/swing-detector-api
