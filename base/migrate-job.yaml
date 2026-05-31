@@ -15,7 +15,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: ghcr.io/6cclab/swing-detector-api:latest
+          image: repoflow.6cclab.dev/swing-detector/api:latest
           command: ["/migrate", "-direction", "up", "-path", "file:///migrations"]
           envFrom:
             - secretRef:

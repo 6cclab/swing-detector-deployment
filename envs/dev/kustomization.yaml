@@ -9,9 +9,9 @@ resources:
 - middleware.yaml
 
 images:
-- name: ghcr.io/6cclab/swing-detector-api
-  newName: ghcr.io/6cclab/swing-detector-api
+- name: repoflow.6cclab.dev/swing-detector/api
+  newName: repoflow.6cclab.dev/swing-detector/api
   newTag: 08204e49c6b737ad53ecda4413524807d0991618
-- name: ghcr.io/6cclab/swing-detector-worker
-  newName: ghcr.io/6cclab/swing-detector-worker
+- name: repoflow.6cclab.dev/swing-detector/worker
+  newName: repoflow.6cclab.dev/swing-detector/worker
   newTag: ee7878aa38f7eb430df1942a3e0fa344dbb5bf86
