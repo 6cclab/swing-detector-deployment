@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: repoflow.6cclab.dev/apps/swing-detector/api:latest
+          image: repoflow.6cclab.dev/6cclab/apps/swing-detector-api:latest
           ports:
             - containerPort: 8000
               protocol: TCP
@@ -102,7 +102,7 @@ spec:
     spec:
       containers:
         - name: worker
-          image: repoflow.6cclab.dev/apps/swing-detector/worker:latest
+          image: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker:latest
           envFrom:
             - secretRef:
                 name: swing-detector-secrets

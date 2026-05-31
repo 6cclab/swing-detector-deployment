@@ -9,9 +9,9 @@ resources:
 - middleware.yaml
 
 images:
-- name: repoflow.6cclab.dev/apps/swing-detector/api
-  newName: repoflow.6cclab.dev/apps/swing-detector/api
+- name: repoflow.6cclab.dev/6cclab/apps/swing-detector-api
+  newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-api
   newTag: 08204e49c6b737ad53ecda4413524807d0991618
-- name: repoflow.6cclab.dev/apps/swing-detector/worker
-  newName: repoflow.6cclab.dev/apps/swing-detector/worker
+- name: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
+  newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
   newTag: ee7878aa38f7eb430df1942a3e0fa344dbb5bf86
