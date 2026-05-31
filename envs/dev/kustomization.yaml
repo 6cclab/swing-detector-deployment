@@ -11,7 +11,7 @@ resources:
 images:
 - name: repoflow.6cclab.dev/6cclab/apps/swing-detector-api
   newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-api
-  newTag: 08204e49c6b737ad53ecda4413524807d0991618
+  newTag: e4efad9b7c2ba62ea6c530d05676bdad0b59c837
 - name: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
   newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
   newTag: ee7878aa38f7eb430df1942a3e0fa344dbb5bf86
