@@ -134,15 +134,4 @@ spec:
                 - ALL
       volumes:
         - name: checkpoints
-          persistentVolumeClaim:
-            claimName: swing-detector-checkpoints
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: swing-detector-checkpoints
-spec:
-  accessModes: ['ReadWriteOnce']
-  resources:
-    requests:
-      storage: 2Gi
+          emptyDir: {}
