@@ -4,14 +4,14 @@ kind: Kustomization
 namespace: swing-detector
 
 resources:
-  - ../../base
-  - ingress.yaml
-  - middleware.yaml
+- ../../base
+- ingress.yaml
+- middleware.yaml
 
 images:
-  - name: ghcr.io/6cclab/swing-detector-api
-    newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-api
-    newTag: e4efad9b7c2ba62ea6c530d05676bdad0b59c837
-  - name: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
-    newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
-    newTag: ee7878aa38f7eb430df1942a3e0fa344dbb5bf86
+- name: ghcr.io/6cclab/swing-detector-api
+  newName: ghcr.io/6cclab/swing-detector-api
+  newTag: 75e5f001337fcf9d43173b27102d2f8eba2b198f
+- name: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
+  newName: repoflow.6cclab.dev/6cclab/apps/swing-detector-worker
+  newTag: ee7878aa38f7eb430df1942a3e0fa344dbb5bf86
