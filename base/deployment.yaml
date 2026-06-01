@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: swing-detector-api
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: '2'
 spec:
   replicas: 1
   strategy:
@@ -22,13 +22,13 @@ spec:
       labels:
         app.kubernetes.io/name: swing-detector-api
       annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "8000"
-        prometheus.io/path: "/health"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8000'
+        prometheus.io/path: '/health'
     spec:
       containers:
         - name: api
-          image: repoflow.6cclab.dev/6cclab/apps/swing-detector-api:latest
+          image: ghcr.io/6cclab/swing-detector-api:latest
           ports:
             - containerPort: 8000
               protocol: TCP
@@ -37,7 +37,7 @@ spec:
                 name: swing-detector-secrets
           env:
             - name: PORT
-              value: "8000"
+              value: '8000'
             - name: REDIS_URL
               value: redis://swing-detector-redis:6379
             - name: S3_ENDPOINT
@@ -76,7 +76,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["sleep", "30"]
+                command: ['sleep', '30']
       volumes:
         - name: tmp
           emptyDir: {}
@@ -89,7 +89,7 @@ metadata:
   labels:
     app.kubernetes.io/name: swing-detector-worker
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: '2'
 spec:
   replicas: 1
   selector:
@@ -120,7 +120,7 @@ spec:
               cpu: 250m
               memory: 512Mi
             limits:
-              cpu: "2"
+              cpu: '2'
               memory: 2Gi
           volumeMounts:
             - name: checkpoints
@@ -142,7 +142,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: swing-detector-checkpoints
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes: ['ReadWriteOnce']
   resources:
     requests:
       storage: 2Gi

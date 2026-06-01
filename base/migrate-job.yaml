@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: swing-detector-migrate
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: '1'
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
@@ -15,8 +15,9 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: repoflow.6cclab.dev/6cclab/apps/swing-detector-api:latest
-          command: ["/migrate", "-direction", "up", "-path", "file:///migrations"]
+          image: ghcr.io/6cclab/swing-detector-api:latest
+          command:
+            ['/migrate', '-direction', 'up', '-path', 'file:///migrations']
           envFrom:
             - secretRef:
                 name: swing-detector-secrets
