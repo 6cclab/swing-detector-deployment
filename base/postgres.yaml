@@ -39,8 +39,16 @@ spec:
       containers:
         - name: postgres
           image: postgres:16-alpine
+          args:
+            - "-c"
+            - "ssl=on"
+            - "-c"
+            - "ssl_cert_file=/etc/postgres-tls/tls.crt"
+            - "-c"
+            - "ssl_key_file=/etc/postgres-tls/tls.key"
           ports:
             - containerPort: 5432
+              name: postgres
           env:
             - name: POSTGRES_USER
               value: swing
@@ -56,6 +64,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/postgresql/data
+            - name: postgres-tls
+              mountPath: /etc/postgres-tls
+              readOnly: true
           resources:
             requests:
               cpu: 100m
@@ -66,7 +77,16 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 999
+            runAsGroup: 999
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      volumes:
+        - name: postgres-tls
+          secret:
+            secretName: swing-postgres-tls
+            defaultMode: 0640
   volumeClaimTemplates:
     - metadata:
         name: data

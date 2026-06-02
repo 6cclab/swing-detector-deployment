@@ -12,6 +12,14 @@ spec:
     - swing-db.dev-01.6cclab.dev
 ---
 apiVersion: traefik.io/v1alpha1
+kind: ServersTransportTCP
+metadata:
+  name: swing-postgres-transport
+spec:
+  dialTimeout: 30s
+  dialKeepAlive: 30s
+---
+apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
 metadata:
   name: swing-postgres
@@ -23,5 +31,6 @@ spec:
       services:
         - name: swing-detector-postgres
           port: 5432
+          serversTransport: swing-postgres-transport
   tls:
-    secretName: swing-postgres-tls
+    passthrough: true
