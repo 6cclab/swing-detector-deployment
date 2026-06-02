@@ -1,11 +1,15 @@
 ---
-apiVersion: traefik.io/v1alpha1
-kind: ServersTransportTCP
+apiVersion: cert-manager.io/v1
+kind: Certificate
 metadata:
-  name: swing-postgres-transport
+  name: swing-postgres-cert
 spec:
-  dialTimeout: 30s
-  dialKeepAlive: 30s
+  secretName: swing-postgres-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - swing-db.dev-01.6cclab.dev
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteTCP
@@ -19,6 +23,5 @@ spec:
       services:
         - name: swing-detector-postgres
           port: 5432
-          serversTransport: swing-postgres-transport
   tls:
-    passthrough: true
+    secretName: swing-postgres-tls
