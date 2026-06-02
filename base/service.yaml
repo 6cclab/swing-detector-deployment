@@ -12,3 +12,18 @@ spec:
       protocol: TCP
   selector:
     app.kubernetes.io/name: swing-detector-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swing-detector-admin
+  labels:
+    app.kubernetes.io/name: swing-detector-admin
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: swing-detector-admin

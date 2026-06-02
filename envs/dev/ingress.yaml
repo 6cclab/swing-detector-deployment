@@ -23,3 +23,28 @@ spec:
                 name: swing-detector-api
                 port:
                   number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: swing-detector-admin
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dev
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - swing-admin.apps.dev-01.6cclab.dev
+      secretName: swing-detector-admin-tls
+  rules:
+    - host: swing-admin.apps.dev-01.6cclab.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: swing-detector-admin
+                port:
+                  number: 80

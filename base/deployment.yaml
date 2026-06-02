@@ -137,3 +137,71 @@ spec:
       volumes:
         - name: checkpoints
           emptyDir: {}
+---
+# Admin Dashboard (React Router SSR)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swing-detector-admin
+  labels:
+    app.kubernetes.io/name: swing-detector-admin
+  annotations:
+    argocd.argoproj.io/sync-wave: '2'
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: swing-detector-admin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: swing-detector-admin
+    spec:
+      containers:
+        - name: admin
+          image: ghcr.io/6cclab/swing-detector-admin:latest
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          env:
+            - name: PORT
+              value: '3000'
+            - name: API_URL
+              value: http://swing-detector-api
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: swing-detector-secrets
+                  key: SESSION_SECRET
+                  optional: true
+          livenessProbe:
+            httpGet:
+              path: /login
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /login
+              port: 3000
+            initialDelaySeconds: 2
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
