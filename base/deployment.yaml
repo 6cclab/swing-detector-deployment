@@ -173,23 +173,17 @@ spec:
               value: '3000'
             - name: API_URL
               value: http://swing-detector-api
-            - name: SESSION_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: swing-detector-secrets
-                  key: SESSION_SECRET
-                  optional: true
           livenessProbe:
             httpGet:
               path: /login
               port: 3000
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 30
           readinessProbe:
             httpGet:
               path: /login
               port: 3000
-            initialDelaySeconds: 2
+            initialDelaySeconds: 5
             periodSeconds: 10
           resources:
             requests:
@@ -200,6 +194,7 @@ spec:
               memory: 256Mi
           securityContext:
             runAsNonRoot: true
+            runAsUser: 1000
             readOnlyRootFilesystem: false
             allowPrivilegeEscalation: false
             capabilities:
