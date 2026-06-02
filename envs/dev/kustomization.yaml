@@ -10,6 +10,9 @@ resources:
 - postgres-route.yaml
 
 images:
+- name: ghcr.io/6cclab/swing-detector-admin
+  newName: ghcr.io/6cclab/swing-detector-admin
+  newTag: 66dea51f2e6fb4dd91005186a0e87296c6a45b87
 - name: ghcr.io/6cclab/swing-detector-api
   newName: ghcr.io/6cclab/swing-detector-api
   newTag: 904e33ccf009dc661217ea96b942841db1f90fbf
