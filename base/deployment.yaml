@@ -168,6 +168,9 @@ spec:
           ports:
             - containerPort: 3000
               protocol: TCP
+          envFrom:
+            - secretRef:
+                name: swing-detector-secrets
           env:
             - name: PORT
               value: '3000'
@@ -192,11 +195,17 @@ spec:
             limits:
               cpu: 250m
               memory: 256Mi
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
+      volumes:
+        - name: tmp
+          emptyDir: {}
