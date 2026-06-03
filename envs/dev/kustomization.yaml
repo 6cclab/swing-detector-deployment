@@ -18,4 +18,4 @@ images:
   newTag: 757b90de163e6994a1c0ffd786405529f2bee5ca
 - name: ghcr.io/6cclab/swing-detector-worker
   newName: ghcr.io/6cclab/swing-detector-worker
-  newTag: 8da46ad05efd32de479e49216618feef5c7dd736
+  newTag: 286effcb307161de7eef5c0c1062c3698eb2c0cc
