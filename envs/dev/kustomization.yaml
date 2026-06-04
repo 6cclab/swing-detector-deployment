@@ -12,7 +12,7 @@ resources:
 images:
 - name: ghcr.io/6cclab/swing-detector-admin
   newName: ghcr.io/6cclab/swing-detector-admin
-  newTag: d94bc12f0c803d8cc98427d3ef29f325e804f991
+  newTag: fb1d19e60ba0b2a3b7c09bb9d8b42ddcd1bd9430
 - name: ghcr.io/6cclab/swing-detector-api
   newName: ghcr.io/6cclab/swing-detector-api
   newTag: 1ee51bb63114be7fe5404bd65a57996237173f6d
