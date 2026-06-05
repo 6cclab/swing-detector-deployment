@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: swing-detector-ollama-text
 spec:
   serviceName: swing-detector-ollama-text
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: swing-detector-ollama-text

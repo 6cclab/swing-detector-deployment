@@ -113,7 +113,7 @@ spec:
             - name: S3_BUCKET
               value: swing-iq
             - name: OLLAMA_URL
-              value: http://swing-detector-ollama-text:11434
+              value: http://ollama-external.ollama.svc:11434
             - name: OLLAMA_MODEL
               value: qwen3:8b
             - name: OLLAMA_VISION_URL
