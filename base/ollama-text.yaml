@@ -16,6 +16,22 @@ spec:
       labels:
         app.kubernetes.io/name: swing-detector-ollama-text
     spec:
+      initContainers:
+        - name: pull-model
+          image: ollama/ollama:rocm
+          command: ['sh', '-c', 'ollama serve & sleep 5 && ollama pull qwen3:8b && kill %1']
+          resources:
+            requests:
+              cpu: '1'
+              memory: 8Gi
+              amd.com/gpu: 1
+            limits:
+              cpu: '8'
+              memory: 12Gi
+              amd.com/gpu: 1
+          volumeMounts:
+            - name: ollama-data
+              mountPath: /root/.ollama
       containers:
         - name: ollama
           image: ollama/ollama:rocm
