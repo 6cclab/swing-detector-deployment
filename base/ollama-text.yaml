@@ -1,13 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: swing-detector-ollama-text
   labels:
     app.kubernetes.io/name: swing-detector-ollama-text
 spec:
+  serviceName: swing-detector-ollama-text
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: swing-detector-ollama-text
@@ -71,10 +70,14 @@ spec:
           volumeMounts:
             - name: ollama-data
               mountPath: /root/.ollama
-      volumes:
-        - name: ollama-data
-          emptyDir:
-            sizeLimit: 20Gi
+  volumeClaimTemplates:
+    - metadata:
+        name: ollama-data
+      spec:
+        accessModes: ['ReadWriteOnce']
+        resources:
+          requests:
+            storage: 20Gi
 ---
 apiVersion: v1
 kind: Service
