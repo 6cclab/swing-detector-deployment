@@ -19,7 +19,7 @@ spec:
       initContainers:
         - name: pull-model
           image: ollama/ollama:rocm
-          command: ['sh', '-c', 'ollama serve & sleep 5 && ollama pull qwen3:8b && kill %1']
+          command: ['sh', '-c', 'ollama serve & sleep 5 && ollama pull qwen3:8b; kill %1 2>/dev/null; true']
           resources:
             requests:
               cpu: '1'
