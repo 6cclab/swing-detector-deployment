@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swing-detector-ollama-text
+  labels:
+    app.kubernetes.io/name: swing-detector-ollama-text
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: swing-detector-ollama-text
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: swing-detector-ollama-text
+    spec:
+      containers:
+        - name: ollama
+          image: ollama/ollama:rocm
+          ports:
+            - containerPort: 11434
+              protocol: TCP
+          env:
+            - name: OLLAMA_MAX_LOADED_MODELS
+              value: '1'
+            - name: OLLAMA_KEEP_ALIVE
+              value: '10m'
+            - name: OLLAMA_NUM_PARALLEL
+              value: '2'
+          livenessProbe:
+            httpGet:
+              path: /api/tags
+              port: 11434
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /api/tags
+              port: 11434
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: '2'
+              memory: 8Gi
+              amd.com/gpu: 1
+            limits:
+              cpu: '8'
+              memory: 12Gi
+              amd.com/gpu: 1
+          volumeMounts:
+            - name: ollama-data
+              mountPath: /root/.ollama
+      volumes:
+        - name: ollama-data
+          emptyDir:
+            sizeLimit: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: swing-detector-ollama-text
+  labels:
+    app.kubernetes.io/name: swing-detector-ollama-text
+spec:
+  selector:
+    app.kubernetes.io/name: swing-detector-ollama-text
+  ports:
+    - port: 11434
+      targetPort: 11434
+      protocol: TCP

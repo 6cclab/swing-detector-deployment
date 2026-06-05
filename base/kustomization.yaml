@@ -8,3 +8,4 @@ resources:
   - migrate-job.yaml
   - deployment.yaml
   - service.yaml
+  - ollama-text.yaml

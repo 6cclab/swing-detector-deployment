@@ -44,8 +44,6 @@ spec:
               value: http://garage.garage.svc:3900
             - name: S3_BUCKET
               value: swing-iq
-            - name: OLLAMA_URL
-              value: http://ollama-external.ollama.svc:11434
           livenessProbe:
             httpGet:
               path: /health
@@ -114,6 +112,14 @@ spec:
               value: http://garage.garage.svc:3900
             - name: S3_BUCKET
               value: swing-iq
+            - name: OLLAMA_URL
+              value: http://swing-detector-ollama-text:11434
+            - name: OLLAMA_MODEL
+              value: qwen3:8b
+            - name: OLLAMA_VISION_URL
+              value: http://ollama-external.ollama.svc:11434
+            - name: OLLAMA_VISION_MODEL
+              value: gemma3:12b
           resources:
             requests:
               cpu: 250m
