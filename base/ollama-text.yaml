@@ -19,6 +19,9 @@ spec:
         - name: pull-model
           image: ollama/ollama:rocm
           command: ['sh', '-c', 'ollama serve & sleep 5 && ollama pull qwen3:8b; kill %1 2>/dev/null; true']
+          env:
+            - name: HSA_OVERRIDE_GFX_VERSION
+              value: '10.3.0'
           resources:
             requests:
               cpu: '1'
@@ -38,6 +41,8 @@ spec:
             - containerPort: 11434
               protocol: TCP
           env:
+            - name: HSA_OVERRIDE_GFX_VERSION
+              value: '10.3.0'
             - name: OLLAMA_MAX_LOADED_MODELS
               value: '1'
             - name: OLLAMA_KEEP_ALIVE
