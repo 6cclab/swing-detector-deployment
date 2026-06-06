@@ -97,6 +97,7 @@ spec:
       labels:
         app.kubernetes.io/name: swing-detector-worker
     spec:
+      terminationGracePeriodSeconds: 600
       containers:
         - name: worker
           image: ghcr.io/6cclab/swing-detector-worker:latest
