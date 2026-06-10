@@ -4,4 +4,4 @@ metadata:
   name: swing-body-limit
 spec:
   buffering:
-    maxRequestBodyBytes: 524288000
+    maxRequestBodyBytes: 2147483648
