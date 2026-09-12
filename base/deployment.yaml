@@ -121,11 +121,11 @@ spec:
             - name: OLLAMA_URL
               value: http://ollama-external.ollama.svc:11434
             - name: OLLAMA_MODEL
-              value: qwen3:8b
+              value: qwen3.8:latest
             - name: OLLAMA_VISION_URL
               value: http://ollama-external.ollama.svc:11434
             - name: OLLAMA_VISION_MODEL
-              value: gemma3:12b
+              value: qwen3.8:latest
           resources:
             requests:
               cpu: 250m
